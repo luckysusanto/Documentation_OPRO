@@ -1,3 +1,7 @@
 MODEL_CACHE
 *.sh.e*
 *.sh.o*
+
+1_IndoBERTweet_Baseline/bash_logs/*
+1_IndoBERTweet_Baseline/logs/*
+1_IndoBERTweet_Baseline/runs/*

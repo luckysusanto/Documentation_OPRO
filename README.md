@@ -41,3 +41,6 @@ Data to be used in the experiments are under the folder `Data/Normalized`. See `
 4. You can run `cache_model.py` by itself. Or, if you are in a compute cluster, just `qsub cache_model.sh` (or its equivalance).
 ---
 
+## Experiment List
+1. Getting a baseline.
+= [ ] For each model used, Get a baseline performance.
