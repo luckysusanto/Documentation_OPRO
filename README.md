@@ -20,6 +20,8 @@ Processed data in folder `Data/Processed`
 
 Exemplars are split 1:1 to their corresponding percentage. They are used for comparison purposes (See below)
 
+Data to be used in the experiments are under the folder `Data/Normalized`. See `Data/normalize_data.py` for code.
+
 ## Project Goal
 1. See Expected Output
 2. We want to report whether or not OPRO can beat the SoTA approach of simply finetuning Hate Speech Detectors (HSD) using up-to-date data. 
