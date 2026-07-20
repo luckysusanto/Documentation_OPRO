@@ -1,0 +1,22 @@
+HF_HOME = ../MODEL_CACHE
+Failed to download hf_transfer, using default huggingface_hub instead.
+HF_HOME = ../MODEL_CACHE
+caching 5 models
+
+[1/5] Qwen/Qwen3-8B
+    OK -> ../MODEL_CACHE/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218
+
+[2/5] Qwen/Qwen3-32B
+    OK -> ../MODEL_CACHE/hub/models--Qwen--Qwen3-32B/snapshots/9216db5781bf21249d130ec9da846c4624c16137
+
+[3/5] aisingapore/Qwen-SEA-LION-v4-32B-IT
+    OK -> ../MODEL_CACHE/hub/models--aisingapore--Qwen-SEA-LION-v4-32B-IT/snapshots/0a1139ab3c320076ad043756b4d7a35a21a4c270
+
+[4/5] google/gemma-4-12b-it
+    OK -> ../MODEL_CACHE/hub/models--google--gemma-4-12b-it/snapshots/12ace6d648d72bd41519e140f1185f34d38c7e3d
+
+[5/5] google/gemma-4-31b-it
+    OK -> ../MODEL_CACHE/hub/models--google--gemma-4-31b-it/snapshots/b9ea41a2887d8607f594846523f94c6cc75ac8a4
+
+============================================================
+DONE — all models cached successfully.

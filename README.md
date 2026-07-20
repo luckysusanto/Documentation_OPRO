@@ -32,3 +32,10 @@ Exemplars are split 1:1 to their corresponding percentage. They are used for com
 2. python version 3.10.12
 3. `pip install -r requirements.txt`
 
+### Preparation: Model Caching
+1. Set HF_HOME `export HF_HOME=/path/to/your/cache`
+2. What models are we running the experiment with? Original setup uses 5 (see the MODEL variable in `0_Setup/cache_model.py`). Change as needed with exact repo id.
+3. You can resume it safely even if it fails.
+4. You can run `cache_model.py` by itself. Or, if you are in a compute cluster, just `qsub cache_model.sh` (or its equivalance).
+---
+
