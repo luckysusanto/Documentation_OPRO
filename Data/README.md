@@ -9,4 +9,4 @@
 - [ ] whitespace + edge-quote cleanup
 - [ ] Casing (default to no casing, use --lowercase to lowercase the text. IndoBERTweet-uncased can automatically lowercase.)
 
-Data in the Normalized folder obtained by running: `./run_normalize.sh ./Processed ./Normalized`
+Data in the Normalized folder obtained by running: `bash ./run_normalize.sh ./Processed ./Normalized`

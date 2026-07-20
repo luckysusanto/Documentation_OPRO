@@ -14,6 +14,7 @@ from huggingface_hub import snapshot_download
 from huggingface_hub.utils import HfHubHTTPError
 
 MODELS = [
+    "indolem/indobertweet-base-uncased",
     "Qwen/Qwen3-8B",
     "Qwen/Qwen3-32B",
     "aisingapore/Qwen-SEA-LION-v4-32B-IT",
