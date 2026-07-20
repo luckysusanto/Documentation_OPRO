@@ -15,7 +15,7 @@ import config as C
 from data_utils import load_train_portion, load_split, to_dataset, compute_metrics
 
 def load_tokenizer():
-    return AutoTokenzer.from_pretrained(
+    return AutoTokenizer.from_pretrained(
         C.MODEL_NAME_OR_PATH, local_files_only=C.LOCAL_FILES_ONLY
     )
 
@@ -32,7 +32,7 @@ def _training_args(hp: dict, output_dir, seed: int) -> TrainingArguments:
         overwrite_output_dir=True,
         num_train_epochs=C.MAX_EPOCHS,
         learning_rate=hp['learning_rate'],
-        per_device_training_batch_size=hp["per_device_training_batch_size"],
+        per_device_train_batch_size=hp["per_device_train_batch_size"],
         per_device_eval_batch_size=64,
         weight_decay=hp["weight_decay"],
         warmup_ratio=hp["warmup_ratio"],
@@ -90,13 +90,13 @@ def train_once(hp, source, portion, seed, output_dir, tokenizer):
 
 # Hyperparameter searching
 def run_hp_search(source, tokenizer, output_dir):
-    import optune # Automate hyperparameter searching
+    import optuna # Automate hyperparameter searching
 
     train_df = load_train_portion(source, C.HP_SEARCH_PORTION, C.HP_SEARCH_SEED)
     eval_df = load_split(source, "eval_set")
     
-    train_ds = to_dataset(train_df)
-    eval_ds = to_dataset(eval_df)
+    train_ds = to_dataset(train_df, tokenizer)
+    eval_ds = to_dataset(eval_df, tokenizer)
 
     collator = DataCollatorWithPadding(tokenizer)
 
@@ -123,7 +123,7 @@ def run_hp_search(source, tokenizer, output_dir):
     trainer = Trainer(
         model_init=_model_init,
         args=base_args,
-        train_dataset=trian_ds,
+        train_dataset=train_ds,
         eval_dataset=eval_ds,
         data_collator=collator,
         compute_metrics=compute_metrics,

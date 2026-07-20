@@ -1,0 +1,32 @@
+#!/bin/bash -l
+#$ -P multilm
+#$ -N bert_cell
+#$ -pe omp 8
+#$ -l gpus=1
+#$ -l gpu_type=L40S
+#$ -l gpu_memory=48G
+#$ -l h_rt=04:00:00
+#$ -j y
+#$ -o logs/$JOB_NAME.o$JOB_ID
+
+set -euo pipefail
+
+SOURCE="${1:?need source as arg 1 (csis | indoDiscourse)}"
+PORTION="${2:?need portion as arg 2 (010..100)}"
+SEED="${3:?need seed as arg 3}"
+
+echo "=== CELL START: source=$SOURCE portion=$PORTION seed=$SEED ==="
+echo "host=$(hostname) date=$(date) CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-unset}"
+
+module load cuda/13.2
+source "/projectnb/multilm/lsusanto/OPRO/vllm_env/bin/activate" # Adapt this
+export HF_HOME=../MODEL_CACHE 
+
+mkdir -p logs
+
+python run_single.py \
+    --source  "$SOURCE" \
+    --portion "$PORTION" \
+    --seed    "$SEED"
+
+echo "=== CELL DONE: source=$SOURCE portion=$PORTION seed=$SEED ==="
