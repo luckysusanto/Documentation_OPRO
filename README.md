@@ -5,8 +5,8 @@ Hate speech is an increasingly problematic issue in modern society. However, adv
 ---
 
 ## Research Question
-1. We know that the definition of hate (what counts as hateful rhetorics, what counts as a slur, etc) changes rather rapidly. Can LLM detect this?
-2. If the answer to (1) is yes, what does it mean for the future of hate speech detection systems? (a) How much data would we require to "update" our hate speech detection system?
+1. How competitive is OPRO compared to traditional solutions when we look at it from data point perspective?
+2. Can OPRO adapt previous definition of hate speech so that it fits better with current definition of hate speech?
 
 ## Expected Output
 We expect a playbook/guide book for technical users to use.
