@@ -55,3 +55,6 @@ Data to be used in the experiments are under the folder `Data/Normalized`. See `
 ## Experiment List
 1. Getting a baseline.
 = [ ] For each model used, Get a baseline performance.
+
+## Potential Ablation
+1. In this work, we use the translated rubric of hate speech as defined by [This paper](https://aclanthology.org/N16-2013.pdf). Does this translation affects the model meaningfully? Would the model still perform better with English rubric? Worth ablating.
