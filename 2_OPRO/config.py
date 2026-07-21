@@ -33,7 +33,7 @@ MODEL_REPO = {
 }
 
 # vLLM server setting
-BASE_URL: "http://127.0.0.1:8000/v1"
+BASE_URL = "http://127.0.0.1:8000/v1"
 MAX_WORKER = 64 # max network request in flight to vLLM server, not dataset worker
 SCORER_MAX_TOKENS = 4096
 OPT_MAX_TOKENS = 8192
