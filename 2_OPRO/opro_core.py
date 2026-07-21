@@ -1,7 +1,7 @@
 import re 
 import time 
 from collections import Counter
-from concurrent.features import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import pandas as pd
 from openai import OpenAI 
