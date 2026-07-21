@@ -9,7 +9,13 @@ Data split used:
 3. val_set is used by the scorer in the final run to find the best rubric.
 4. test_set is used to report the rubric's performance.
 
-## Things that may need changes
+# How to use
+1. Reporting: use `aggregate.py` | `python aggregate.py --sources [csis/indoDiscourse] --model [check config key]`
+2. Run experiment: use `run_single.py` | `python run_single.py --model [check config key] --source [csis/indoDiscourse] --portion [010, ..., 100] --seed xx`
+3. Other codes are just support. I would run them on BUSCC like the .sh files; but, adapt these. 
+4. NOTE: From testing, these models fits on 2 L40S. I'm coding this section under that assumption. 
+
+# Things that may need changes
 1. `config.py`
 - [ ] MODEL_REPO, directly dictates which model are being used in this experiment. I suggest just picking 2. Remember that 1 chosen model will already result in 60 runs. NOT CHEAP!
 2. `opro_core.py`
