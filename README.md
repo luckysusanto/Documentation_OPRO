@@ -29,6 +29,17 @@ Data to be used in the experiments are under the folder `Data/Normalized`. See `
 
 ---
 
+## Potential Weakness
+1. Although CSIS and IndoDiscourse are 5 years apart, one confounding variable that I have not been able to isolate is the Dataset Artifact (Annotation methodology, likely different sampling/topics, different dataset statistics). 
+2. N = 2 is a weak temporal axis. We can't distinguish "drift" from just this. Hypothetically, language changes at a "logical" pace. It would had been great if we can find a set of dataset, targetting the same type of vulnerable group, and see how over the year how hate speech changes against them. 
+
+## Potential Argument
+1. If we frame the paper as a guide for practitioners, then, we do not exactly need to deal with these issues.
+2. Thus, the target for this paper is: **NLP Application**
+
+---
+
+
 ## Getting Started
 1. cuda version 12.2
 2. python version 3.10.12
