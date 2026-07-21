@@ -47,7 +47,7 @@ def load_train_portion(source: str, portion:str, seed: int) -> pd.DataFrame:
 
 def load_split(source: str, which: str) -> pd.DataFrame:
     # which = ['val_set', 'opt_set', 'test_set'], opt_set is for later (OPRO)
-    return _read_csv(C.DATA_DIR / F"{source}_{which}_normalized.py")
+    return _read_csv(C.DATA_DIR / F"{source}_{which}_normalized.csv")
 
 def to_dataset(df: pd.DataFrame, tokenizer) -> Dataset:
     ds = Dataset.from_pandas(df.rename(columns={C.LABEL_COL: "labels"}), preserve_index=False)
@@ -68,7 +68,7 @@ def compute_metrics(eval_pred):
     preds = logits.argmax(axis=-1)
 
     acc = accuracy_score(labels, preds)
-        p_macro, r_macro, f1_macro, _ = precision_recall_fscore_support(
+    p_macro, r_macro, f1_macro, _ = precision_recall_fscore_support(
         labels, preds, average="macro", zero_division=0
     )
     _, _, f1_weighted, _ = precision_recall_fscore_support(

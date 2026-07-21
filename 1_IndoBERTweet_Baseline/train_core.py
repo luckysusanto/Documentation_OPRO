@@ -54,7 +54,7 @@ def build_trainer(hp, source, portion, seed, output_dir, tokenizer):
     set_seed(seed)
 
     train_df = load_train_portion(source, portion, seed)
-    eval_df = load_split(source, "eval_set")
+    eval_df = load_split(source, "val_set")
 
     train_ds = to_dataset(train_df, tokenizer)
     eval_ds = to_dataset(eval_df, tokenizer)
@@ -93,7 +93,7 @@ def run_hp_search(source, tokenizer, output_dir):
     import optuna # Automate hyperparameter searching
 
     train_df = load_train_portion(source, C.HP_SEARCH_PORTION, C.HP_SEARCH_SEED)
-    eval_df = load_split(source, "eval_set")
+    eval_df = load_split(source, "val_set")
     
     train_ds = to_dataset(train_df, tokenizer)
     eval_ds = to_dataset(eval_df, tokenizer)

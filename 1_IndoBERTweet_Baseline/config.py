@@ -14,7 +14,7 @@ OUTPUT_DIR = Path("runs")
 # Data
 SOURCES = ["csis", "indoDiscourse"]
 SEEDS = [0, 42, 2026]
-PORITONS = [
+PORTIONS = [
     "010", "020", "030", "040", "050",
     "060", "070", "080", "090", "100"
 ]

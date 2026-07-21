@@ -1,5 +1,5 @@
 # What needs to be done
-1. Get a baseline performance of IndoBERTweet on each training pair of `([csis/indoDiscourse]_hate_[xxx]_normalized.csv, [csis/indoDiscourse]_nonhate_[xxx]_normalized.csv)`
+1. Get a baseline performance of IndoBERTweet on each training pair of `([csis/indoDiscourse]_hate_[xxx]_normalized.csv, [csis/indoDiscourse]_exemplars_nonhate_[xxx]_normalized.csv)`
 2. Use seeded run.
 3. Report mean + standard deviation per model.
 4. Search for hyperparameter first for each dataset, run it on the full data (100) variants.
