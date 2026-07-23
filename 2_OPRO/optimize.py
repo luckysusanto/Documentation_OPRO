@@ -16,7 +16,7 @@ def _sort_tracker(tracker):
         reverse=True
     )
 
-def _tracker_to_dict_worse_to_best(tracker, k):
+def _tracker_to_dict_worst_to_best(tracker, k):
     best_first = _sort_tracker(tracker)[:k]
     worst_first = list(reversed(best_first))
     d = {

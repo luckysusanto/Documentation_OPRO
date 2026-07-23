@@ -4,7 +4,7 @@ DATA_DIR = Path("../Data/Normalized")
 OUTPUT_DIR = Path("runs")
 
 SOURCES = ["csis", "indoDiscourse"]
-SEED = [0, 42, 2026]
+SEEDS = [0, 42, 2026]
 PORTIONS = [
     "010", "020", "030", "040", "050",
     "060", "070", "080", "090", "100"
@@ -34,7 +34,7 @@ MODEL_REPO = {
 
 # vLLM server setting
 BASE_URL = "http://127.0.0.1:8000/v1"
-MAX_WORKER = 64 # max network request in flight to vLLM server, not dataset worker
+MAX_WORKERS = 64 # max network request in flight to vLLM server, not dataset worker
 SCORER_MAX_TOKENS = 4096
 OPT_MAX_TOKENS = 8192
 

@@ -72,7 +72,7 @@ def select_on_val(tracker, source, client, seed, max_workers, log):
     best = max(range(len(results)), key=lambda x: results[x]["val_macro_f1"])
     for j, r in enumerate(results):
         r["selected"] = (j == best)
-    return results[best]["rubrics"], results 
+    return results[best]["rubric"], results 
 
 def report_on_test(rubric, source, client, seed, max_workers, log):
     test_set = D.load_split(source, C.REPORT_SPLIT)
@@ -91,7 +91,7 @@ def main():
     if args.step_count is not None:
         C.STEP_COUNT = args.step_count
 
-    served = args.served_model_name or C.MODEL_REPO[args.model]
+    served = args.server_model_name or C.MODEL_REPO[args.model]
     run_dir = (C.OUTPUT_DIR / args.source /
                f"{args.source}_{args.portion}_{args.seed}_{args.model}")
     metrics_path = run_dir / "test_metrics.json"
@@ -160,4 +160,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
