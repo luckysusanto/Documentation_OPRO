@@ -3,10 +3,10 @@ MODEL_CACHE
 *.sh.o*
 __pycache__*
 
-1_IndoBERTweet_Baseline/bash_logs/*
-1_IndoBERTweet_Baseline/logs/*
-1_IndoBERTweet_Baseline/runs/*
+1_RQ1_IndoBERTweet_Baseline/bash_logs/*
+1_RQ1_IndoBERTweet_Baseline/logs/*
+1_RQ1_IndoBERTweet_Baseline/runs/*
 
-2_OPRO/bash_logs/*
-2_OPRO/logs/*
-2_OPRO/runs/*
+2_RQ2_OPRO/bash_logs/*
+2_RQ2_OPRO/logs/*
+2_RQ2_OPRO/runs/*
