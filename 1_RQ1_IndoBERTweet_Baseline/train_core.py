@@ -80,6 +80,7 @@ def build_trainer(hp, source, portion, seed, output_dir, tokenizer):
 def train_once(hp, source, portion, seed, output_dir, tokenizer):
     trainer, n_train = build_trainer(hp, source, portion, seed, output_dir, tokenizer)
     trainer.train()
+    trainer.save_model(output_dir / "best_model")
 
     test_df = load_split(source, 'test_set')
     test_ds = to_dataset(test_df, tokenizer)
