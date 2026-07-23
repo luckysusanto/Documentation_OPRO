@@ -80,6 +80,10 @@ def build_trainer(hp, source, portion, seed, output_dir, tokenizer):
 def train_once(hp, source, portion, seed, output_dir, tokenizer):
     trainer, n_train = build_trainer(hp, source, portion, seed, output_dir, tokenizer)
     trainer.train()
+
+    # Note, based on current RQ setup, we only need portion 100. However, I'm saving all.
+    # Edit as needed future person.
+    # if portion == "100": trainer.save_mode(output_dir / "best_model")
     trainer.save_model(output_dir / "best_model")
 
     test_df = load_split(source, 'test_set')
