@@ -38,6 +38,14 @@ def parse_args():
         help="Override config.STEP_COUNT, change for testing purposes" 
     )
     ap.add_argument(
+        "--init-rubric", default=None, type=Path,
+        help="Path to a rubric text file to seed step 0 with. Defaults to "
+             "opro_core.INITIAL_RUBRIC (translated Waseem-Hovy), which is the "
+             "RQ1 setting. RQ2 (folder 4) passes a rubric optimized on the "
+             "OTHER source to test whether an old hate-speech definition "
+             "adapts to a newer one."
+    )
+    ap.add_argument(
         "--force", action="store_true",
         help="Re-run even if the test_metrics.json already exists."
     )
@@ -91,6 +99,14 @@ def main():
     if args.step_count is not None:
         C.STEP_COUNT = args.step_count
 
+    init_rubric = None
+    if args.init_rubric is not None:
+        if not args.init_rubric.is_file():
+            raise SystemExit(f"--init-rubric file not found: {args.init_rubric}")
+        init_rubric = args.init_rubric.read_text(encoding="utf-8").strip()
+        if not init_rubric:
+            raise SystemExit(f"--init-rubric file is empty: {args.init_rubric}")
+
     served = args.server_model_name or C.MODEL_REPO[args.model]
     run_dir = (C.OUTPUT_DIR / args.source /
                f"{args.source}_{args.portion}_{args.seed}_{args.model}")
@@ -112,7 +128,8 @@ def main():
 
     try:
         log(f"=== CELL START model={args.model} source={args.source} "
-            f"portion={args.portion} seed={args.seed} steps={C.STEP_COUNT} ===")
+            f"portion={args.portion} seed={args.seed} steps={C.STEP_COUNT} ==="
+            f"init_rubric={args.init_rubric or 'DEFAULT'} ===")
 
         client = K.VLLMClient(base_url=args.base_url, served_model_name=served)
 
@@ -128,6 +145,7 @@ def main():
             exemplar_hate=exemplar_hate, exemplar_nonhate=exemplar_nonhate,
             client=client, seed=args.seed, max_workers=args.max_workers,
             log=log, traj_path=run_dir / "trajectory.jsonl",
+            init_rubric=init_rubric,
         )
 
         # Select based on val set
@@ -146,6 +164,9 @@ def main():
         test_metrics["_portion"] = args.portion
         test_metrics["_seed"] = args.seed
         test_metrics["_extraction_stats"] = dict(K.EXTRACTION_STATS)
+
+        test_metrics["_init_rubric"] = (
+            str(args.init_rubric) if args.init_rubric else None)
 
         # Write log as text
         metrics_path.write_text(json.dumps(test_metrics, indent=2))

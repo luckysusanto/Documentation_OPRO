@@ -30,10 +30,13 @@ def _tracker_to_dict_best_to_worst(tracker, k):
     return d, len(best_first)
 
 def optimize(opt_set, exemplar_hate, exemplar_nonhate, client, seed,
-             max_workers, log, traj_path: Path):
+             max_workers, log, traj_path: Path, init_rubric=None):
     traj_path.parent.mkdir(parents=True, exist_ok=True)
     traj_file = open(traj_path, "a", encoding="utf-8")
     tracker = []
+
+    if init_rubric is None:
+        init_rubric = K.INITIAL_RUBRIC
 
     try:
         for step in tqdm(range(C.STEP_COUNT + 1), desc="OPRO"):
@@ -43,7 +46,7 @@ def optimize(opt_set, exemplar_hate, exemplar_nonhate, client, seed,
 
             # During startup, just evaluate the initial rubric
             if step == 0:
-                candidates = [K.INITIAL_RUBRIC]
+                candidates = [init_rubric]
                 log(f"step {step}: init (INITIAL_RUBRIC)")
             else:
                 n_use = min(len(tracker), C.KEEP_TOP_K_CANDIDATE)
