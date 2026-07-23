@@ -1,6 +1,7 @@
 MODEL_CACHE
 *.sh.e*
 *.sh.o*
+__pycache__*
 
 1_IndoBERTweet_Baseline/bash_logs/*
 1_IndoBERTweet_Baseline/logs/*
