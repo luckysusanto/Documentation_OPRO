@@ -23,7 +23,7 @@ def _tracker_to_dict_worst_to_best(tracker, k):
         i + 1: {
             "rubric": e["rubric"], 
             "score": e["reported_score"],
-            "tp": e["tp"], "tn": e["tn"], fp: e["fp"], "tn": e["tn"],
+            "tp": e["tp"], "tn": e["tn"], "fp": e["fp"], "fn": e["fn"],
             "n_per_class": e["n_per_class"]
         } for i, e in enumerate(worst_first)
     }
