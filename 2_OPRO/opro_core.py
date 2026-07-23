@@ -102,6 +102,11 @@ Provide the FINAL rubric wrapped in <rubric> tags. Inside the <rubric> tags, out
 # Rubric Extraction
 def strip_thinking_tags(text) -> str:
     # Remove <think>/<thought> blocks; tolerate non-string input (None/NaN).
+    # Note: CHECK README.md to add more models.
+    # Currently, I can only guarantee that this works for Qwen3-32b and sealion-qwen-32b.
+    # I'd suggest looking at vLLM's documentation for Gemma's reasoning parser
+    # IF NOT SET, THIS WON'T WORK, SO READ README.md
+    
     if not isinstance(text, str):
         if text is None or (isinstance(text, float) and pd.isna(text)):
             return ""

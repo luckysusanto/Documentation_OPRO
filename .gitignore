@@ -5,3 +5,7 @@ MODEL_CACHE
 1_IndoBERTweet_Baseline/bash_logs/*
 1_IndoBERTweet_Baseline/logs/*
 1_IndoBERTweet_Baseline/runs/*
+
+2_OPRO/bash_logs/*
+2_OPRO/logs/*
+2_OPRO/runs/*
