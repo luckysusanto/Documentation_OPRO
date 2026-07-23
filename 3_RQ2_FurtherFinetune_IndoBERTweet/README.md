@@ -13,6 +13,11 @@ Experiment list:
 - [ ] Using IndoBERTweet trained on data A's portion-100 data, how well does it do when further finetuned on data B's portion-xxx data, as xxx increases from 010 to 100?
 - [ ] Requires another hyperparameter tuning for futher finetuning.
 
+# Run Guide
+1. [ ] `qsub ./run_hyperparameter_searching.sh`
+2. [ ] `qsub ./submit_continued.sh`, use --smoke flag to test run
+3. [ ] Aggregate statistic
+
 Notes:
 1. config.py generally follows config.py in folder 1_RQ1_IndoBERTweet_Baseline. Unless you know what you are doing, don't edit the section around `# DO NOT EDIT`.
 2. Most of the codes are not really changed too much from folder 1. However, they are not exactly transferable to each other. Specifically, hyperparameter_searching.py here differs massively. But, most of the things are unchanged. So, keep track of changes on identical functions.
