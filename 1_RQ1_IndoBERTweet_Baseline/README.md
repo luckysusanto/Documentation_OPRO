@@ -8,6 +8,12 @@
 1. Have other metrics in mind? Change `data_utils.py`'s compute_metrics
 2. Definitely change config.py to better the numbers you want.
 
+# Run Guide
+1. `qsub ./run_hp_search.sh` -> Get best hyperparam per source
+2. `qsub ./submit_baseline.sh` -> Run all source+partition combination
+3. `python aggregate.py --sources csis`
+4. `python aggregate.py --sources indoDiscourse`
+
 # To Do List
 0. Hyperparameter Searching
 - [ ] IndoDiscourse

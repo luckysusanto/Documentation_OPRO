@@ -15,6 +15,9 @@ Data split used:
 3. Other codes are just support. I would run them on BUSCC like the .sh files; but, adapt these. 
 4. NOTE: From testing, these models fits on 2 L40S. I'm coding this section under that assumption. 
 
+# Run Guide
+1. `qsub ./submit_opro.sh`
+
 # Things that may need changes
 1. `config.py`
 - [ ] MODEL_REPO, directly dictates which model are being used in this experiment. I suggest just picking 2. Remember that 1 chosen model will already result in 60 runs. NOT CHEAP!
