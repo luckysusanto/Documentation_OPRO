@@ -11,9 +11,6 @@ Hate speech is an increasingly problematic issue in modern society. However, adv
 - [ ] If negative-transfer exist, to what degree? (i.e., does adding more data fix it?)
 - [ ] Does finetuning above an already pretrained model create a better model than from scratch?
 - [ ] Thus, is OPRO better suited for adapatation on the task of hate speech classification?
-3. (Ablation) Initial Prompt Sensitivity
-- [ ] Ask LLM to generate the first rubric for hate speech
-- [ ] Translate the original rubric's language
 
 ## Expected Output
 We expect a playbook/guide book for technical users to use.
@@ -61,7 +58,7 @@ Data to be used in the experiments are under the folder `Data/Normalized`. See `
 
 ## Experiment List
 1. Getting a baseline.
-= [ ] For each model used, Get a baseline performance.
+- [ ] For each model used, Get a baseline performance.
 
 ## Potential Ablation
 1. In this work, we use the translated rubric of hate speech as defined by [This paper](https://aclanthology.org/N16-2013.pdf). Does this translation affects the model meaningfully? Would the model still perform better with English rubric? Worth ablating.
