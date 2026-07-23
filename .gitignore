@@ -7,6 +7,6 @@ __pycache__*
 1_RQ1_IndoBERTweet_Baseline/logs/*
 1_RQ1_IndoBERTweet_Baseline/runs/*
 
-2_RQ2_OPRO/bash_logs/*
-2_RQ2_OPRO/logs/*
-2_RQ2_OPRO/runs/*
+2_RQ1_OPRO/bash_logs/*
+2_RQ1_OPRO/logs/*
+2_RQ1_OPRO/runs/*
