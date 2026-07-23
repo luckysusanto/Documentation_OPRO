@@ -6,7 +6,14 @@ Hate speech is an increasingly problematic issue in modern society. However, adv
 
 ## Research Question
 1. How competitive is OPRO compared to traditional solutions when we look at it from data point perspective?
-2. Can OPRO adapt previous definition of hate speech so that it fits better with current definition of hate speech?
+2. Is it better to finetune old Transformer-based model? Or is it better to adapt definitions through OPRO?
+- [ ] Specifically: Is there negative-transfer when we try finetuning old hate speech detection models on new data?
+- [ ] If negative-transfer exist, to what degree? (i.e., does adding more data fix it?)
+- [ ] Does finetuning above an already pretrained model create a better model than from scratch?
+- [ ] Thus, is OPRO better suited for adapatation on the task of hate speech classification?
+3. (Ablation) Initial Prompt Sensitivity
+- [ ] Ask LLM to generate the first rubric for hate speech
+- [ ] Translate the original rubric's language
 
 ## Expected Output
 We expect a playbook/guide book for technical users to use.
