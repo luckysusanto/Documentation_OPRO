@@ -10,3 +10,7 @@ __pycache__*
 2_RQ1_OPRO/bash_logs/*
 2_RQ1_OPRO/logs/*
 2_RQ1_OPRO/runs/*
+
+3_RQ2_FurtherFinetune_IndoBERTweet/bash_logs/*
+3_RQ2_FurtherFinetune_IndoBERTweet/logs/*
+3_RQ2_FurtherFinetune_IndoBERTweet/runs/*
