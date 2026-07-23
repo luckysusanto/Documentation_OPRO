@@ -16,19 +16,18 @@ def _sort_tracker(tracker):
         reverse=True
     )
 
-def _tracker_to_dict_worst_to_best(tracker, k):
+def _tracker_to_dict_best_to_worst(tracker, k):
     best_first = _sort_tracker(tracker)[:k]
-    worst_first = list(reversed(best_first))
     d = {
         i + 1: {
             "rubric": e["rubric"], 
             "score": e["reported_score"],
             "tp": e["tp"], "tn": e["tn"], "fp": e["fp"], "fn": e["fn"],
             "n_per_class": e["n_per_class"]
-        } for i, e in enumerate(worst_first)
+        } for i, e in enumerate(best_first)
     }
 
-    return d, len(worst_first)
+    return d, len(best_first)
 
 def optimize(opt_set, exemplar_hate, exemplar_nonhate, client, seed,
              max_workers, log, traj_path: Path):
@@ -48,7 +47,7 @@ def optimize(opt_set, exemplar_hate, exemplar_nonhate, client, seed,
                 log(f"step {step}: init (INITIAL_RUBRIC)")
             else:
                 n_use = min(len(tracker), C.KEEP_TOP_K_CANDIDATE)
-                tried_dict, n_rubrics = _tracker_to_dict_worst_to_best(tracker, n_use)
+                tried_dict, n_rubrics = _tracker_to_dict_best_to_worst(tracker, n_use)
                 log(f"step {step}: optimizing (top {n_rubrics}/{len(tracker)})")
                 candidates = []
                 for c in range(C.CANDIDATE_PER_STEP):
