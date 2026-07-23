@@ -9,7 +9,7 @@
 #$ -j y
 #$ -o logs/$JOB_NAME.o$JOB_ID
 
-set -euo pipefall
+set -euo pipefail
 # Arguments from submit_opro.sh
 MODEL="${1:?need model as arg 1 (qwen3-32b | sealion-qwen-32b | qwen3-8b)}"
 SOURCE="${2:?need source as arg 2 (csis | indoDiscourse)}"
