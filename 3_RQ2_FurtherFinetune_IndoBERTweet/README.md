@@ -15,3 +15,4 @@ Experiment list:
 
 Notes:
 1. config.py generally follows config.py in folder 1_RQ1_IndoBERTweet_Baseline. Unless you know what you are doing, don't edit the section around `# DO NOT EDIT`.
+2. Most of the codes are not really changed too much from folder 1. However, they are not exactly transferable to each other. Specifically, hyperparameter_searching.py here differs massively. But, most of the things are unchanged. So, keep track of changes on identical functions.
