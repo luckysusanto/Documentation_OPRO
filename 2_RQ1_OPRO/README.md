@@ -20,3 +20,6 @@ Data split used:
 - [ ] MODEL_REPO, directly dictates which model are being used in this experiment. I suggest just picking 2. Remember that 1 chosen model will already result in 60 runs. NOT CHEAP!
 2. `opro_core.py`
 - [ ] Holds all the prompts. If the prompts need to be changed, change them from this file.
+3. `submit_opro.sh` line 34
+- [ ] If you want to add model, You need to find the documentation on the vLLM library on which reasoning parser is needed.
+- [ ] Then, you need to check whether `opro_core.py`'s Rubric Extraction would work on models other than the Qwen3 models.
