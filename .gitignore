@@ -14,3 +14,7 @@ __pycache__*
 3_RQ2_FurtherFinetune_IndoBERTweet/bash_logs/*
 3_RQ2_FurtherFinetune_IndoBERTweet/logs/*
 3_RQ2_FurtherFinetune_IndoBERTweet/runs/*
+
+4_RQ2_TransferInitialRubric/bash_logs/*
+4_RQ2_TransferInitialRubric/logs/*
+4_RQ2_TransferInitialRubric/runs/*

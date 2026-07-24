@@ -133,7 +133,10 @@ def run_hp_search(source, tokenizer, output_dir):
         data_collator=collator,
         compute_metrics=compute_metrics,
         callbacks=[
-            EarlyStoppingCallback(early_stopping_patience=C.EARLY_STOPPING_PATIENCE)
+            EarlyStoppingCallback(                
+                early_stopping_patience=C.EARLY_STOPPING_PATIENCE,
+                early_stopping_threshold=C.EARLY_STOPPING_THRESHOLD,
+            )
         ],
     )
 
