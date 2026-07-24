@@ -62,3 +62,7 @@ Data to be used in the experiments are under the folder `Data/Normalized`. See `
 
 ## Potential Ablation
 1. In this work, we use the translated rubric of hate speech as defined by [This paper](https://aclanthology.org/N16-2013.pdf). Does this translation affects the model meaningfully? Would the model still perform better with English rubric? Worth ablating.
+
+## WHAT IS NOTE YET DONE?
+This is a list of things that should be checked before running things as is.
+1. [ ] Though my test run shows that the scorer model does conform to designated output space, it should be logged/tested to see whether or not scorer outputs outside of [hate, non-hate]
