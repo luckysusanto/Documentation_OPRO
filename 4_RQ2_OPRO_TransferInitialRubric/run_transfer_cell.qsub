@@ -1,0 +1,122 @@
+#!/bin/bash -l
+#$ -P multilm
+#$ -N transfer_cell
+#$ -pe omp 8
+#$ -l gpus=2
+#$ -l gpu_type=L40S
+#$ -l gpu_memory=48G
+#$ -l h_rt=08:00:00
+#$ -j y
+#$ -o logs/$JOB_NAME.o$JOB_ID
+
+set -euo pipefail
+
+MODEL="${1:?need model as arg 1 (qwen3-32b | sealion-qwen-32b)}"
+SOURCE="${2:?need TARGET source as arg 2 (csis | indoDiscourse)}"
+PORTION="${3:?need portion as arg 3 (010..100)}"
+SEED="${4:?need seed as arg 4}"
+STEP_COUNT="${5:-}"
+
+echo "=== CELL START: model=$MODEL target=$SOURCE portion=$PORTION seed=$SEED step_count=${STEP_COUNT:-default} ==="
+echo "host=$(hostname) date=$(date) CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-unset}"
+
+module load cuda/13.2
+source "/projectnb/multilm/lsusanto/OPRO/vllm_env/bin/activate"   # Adapt this
+export HF_HOME=../MODEL_CACHE
+
+if [ ! -d "$HF_HOME/hub" ]; then
+    echo "WARNING: $HF_HOME/hub not found. Models may re-download to the default path."
+fi
+
+# Must stay in sync with folder 2's run_opro_cell.qsub -- see header.
+case "$MODEL" in
+  qwen3-32b)
+    MODEL_REPO="Qwen/Qwen3-32B"
+    TP_SIZE=2
+    REASON_FLAGS=(--reasoning-parser qwen3 --default-chat-template-kwargs '{"enable_thinking": true}')
+    ;;
+  sealion-qwen-32b)
+    MODEL_REPO="aisingapore/Qwen-SEA-LION-v4-32B-IT"
+    TP_SIZE=2
+    REASON_FLAGS=(--reasoning-parser qwen3 --default-chat-template-kwargs '{"enable_thinking": true}')
+    ;;
+  qwen3-8b)
+    # Not in the reporting grid; cheap smoke-test model (tp=1).
+    MODEL_REPO="Qwen/Qwen3-8B"
+    TP_SIZE=1
+    REASON_FLAGS=(--reasoning-parser qwen3 --default-chat-template-kwargs '{"enable_thinking": true}')
+    ;;
+  *)
+    echo "ERROR: unknown model '$MODEL'." >&2
+    echo "       Known: qwen3-32b | sealion-qwen-32b | qwen3-8b" >&2
+    echo "       Adding one? Read folder 2's README 'Adding a model' section --" >&2
+    echo "       the reasoning-parser flags and strip_thinking_tags() must agree," >&2
+    echo "       or every generation silently fails to parse." >&2
+    exit 1
+    ;;
+esac
+
+PORT=8000
+BASE_URL="http://127.0.0.1:${PORT}/v1"
+
+echo "--- launching vLLM server (tp=$TP_SIZE) for $MODEL_REPO ---"
+echo "    reasoning flags: ${REASON_FLAGS[*]}"
+mkdir -p logs
+SERVER_LOG="logs/vllm_${MODEL}_${SOURCE}_${PORTION}_seed${SEED}_$$.log"
+
+python -m vllm.entrypoints.openai.api_server \
+    --model "$MODEL_REPO" \
+    --served-model-name "$MODEL_REPO" \
+    "${REASON_FLAGS[@]}" \
+    --tensor-parallel-size "$TP_SIZE" \
+    --max-model-len 40960 \
+    --gpu-memory-utilization 0.90 \
+    --port "$PORT" \
+    > "$SERVER_LOG" 2>&1 &
+
+SERVER_PID=$!
+echo "vLLM server PID=$SERVER_PID, logging to $SERVER_LOG"
+
+cleanup() {
+  echo "--- cleanup: stopping vLLM server (PID=$SERVER_PID) ---"
+  kill "$SERVER_PID" 2>/dev/null || true
+  wait "$SERVER_PID" 2>/dev/null || true
+}
+trap cleanup EXIT
+
+echo "--- waiting for vLLM server to become ready ---"
+MAX_WAIT=900
+WAITED=0
+until curl -s "http://127.0.0.1:${PORT}/health" > /dev/null 2>&1; do
+  if ! kill -0 "$SERVER_PID" 2>/dev/null; then
+    echo "ERROR: vLLM server process died during startup. Last lines of its log:"
+    tail -n 30 "$SERVER_LOG"
+    exit 1
+  fi
+  if [ "$WAITED" -ge "$MAX_WAIT" ]; then
+    echo "ERROR: server not ready after ${MAX_WAIT}s. Last lines of its log:"
+    tail -n 30 "$SERVER_LOG"
+    exit 1
+  fi
+  sleep 10
+  WAITED=$((WAITED + 10))
+  echo "  ...waited ${WAITED}s"
+done
+echo "--- server is READY after ~${WAITED}s ---"
+
+STEP_FLAG=""
+if [ -n "$STEP_COUNT" ]; then
+  STEP_FLAG="--step-count $STEP_COUNT"
+fi
+
+echo "--- starting transfer runner ---"
+python run_single.py \
+    --model             "$MODEL" \
+    --source            "$SOURCE" \
+    --portion           "$PORTION" \
+    --seed              "$SEED" \
+    --base-url          "$BASE_URL" \
+    --server-model-name "$MODEL_REPO" \
+    $STEP_FLAG
+
+echo "=== CELL DONE: model=$MODEL target=$SOURCE portion=$PORTION seed=$SEED ==="
